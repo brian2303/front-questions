@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -12,7 +12,8 @@ p {
 nav {
   display: flex;
   padding: 2rem 0;
-  background: #111;
+  background: rgb(199,198,213);
+  background: linear-gradient(333deg, rgba(199,198,213,1) 8%, rgba(9,9,121,1) 50%, rgba(0,65,255,0.938813025210084) 90%);
 }
 
 nav section {
@@ -30,11 +31,13 @@ nav a:first-of-type {
 }
 
 nav a:hover {
-  background: #222;
+  background: rgb(101, 97, 156);
+  border-radius: 10px;
+  transition: 1s;
 }
 
 a {
-  color: #ea3546;
+  color: #b9add8;
   text-decoration: none;
 }
 
@@ -94,7 +97,8 @@ textarea {
 
 .button {
   display: inline-block;
-  background: #ea3546;
+  background: rgb(2,0,36);
+  background: radial-gradient(circle, rgba(2,0,36,1) 8%, rgba(9,9,121,1) 50%, rgba(0,212,255,1) 95%);
   color: white;
   border-radius: 4px;
   font-weight: 700;
