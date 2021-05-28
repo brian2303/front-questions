@@ -17,9 +17,7 @@ export function fetchQuestions() {
   return async dispatch => {
     dispatch(loading())
     try {
-      const response = await fetch(
-        `${URL_BASE}/all`
-      )
+      const response = await fetch(`${URL_BASE}/all`)
       const data = await response.json()
       dispatch(success({ questions: data, redirect: null }))
     } catch (error) {
@@ -101,7 +99,7 @@ export function postAnswer(answer) {
   return async dispatch => {
     dispatch(loading())
     try {
-      const response = await fetch(`${URL_BASE}/answer`,
+      await fetch(`${URL_BASE}/answer`,
         {
           method: 'POST',
           mode: 'cors',
@@ -111,7 +109,6 @@ export function postAnswer(answer) {
           body: JSON.stringify(answer)
         }
       )
-      const data = await response.json()
       dispatch(success({ redirect: `/question/${answer.questionId}` }));
     } catch (error) {
       dispatch(failure())

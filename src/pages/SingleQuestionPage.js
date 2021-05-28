@@ -22,8 +22,8 @@ const SingleQuestionPage = ({
   }, [dispatch, id])
 
   const renderQuestion = () => {
-    if (loading.question) return <p>Loading question...</p>
-    if (hasErrors.question) return <p>Unable to display question.</p>
+    if (loading) return <p>Loading question...</p>
+    if (hasErrors) return <p>Unable to display question.</p>
 
     return <Question question={question} />
   }
