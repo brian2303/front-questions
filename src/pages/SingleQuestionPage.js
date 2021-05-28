@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { fetchQuestion } from '../actions/questionActions'
 
 import { Question } from '../components/Question'
-import { Answer } from '../components/Answer'
+import Answer from '../components/Answer'
 import { Link } from 'react-router-dom'
 
 const SingleQuestionPage = ({
@@ -30,7 +30,7 @@ const SingleQuestionPage = ({
 
   const renderAnswers = () => {
     return (question.answers && question.answers.length) ? question.answers.map(answer => (
-      <Answer key={answer.id} answer={answer} />
+      <Answer key={answer.id} answer={answer} questionId={question.id} />
     )) : <p>Empty answer!</p>;
   }
 

@@ -16,6 +16,8 @@ export default function questionsReducer(state = initialState, action) {
       return { ...state, ...action.payload, loading: false, hasErrors: false }
     case actions.LOADED_FAILURE:
       return { ...state, loading: false, hasErrors: true }
+    case actions.UPDATE_POSITION:
+      return { ...state, ...action.payload }
     default:
       return state
   }
