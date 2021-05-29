@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { updateAnswers, updatePosition } from '../actions/questionActions'
 
 
-const Answer = ({ answer, dispatch, questionId }) => {
+const Answer = ({ answer, dispatch, questionId,lastQuestionAndwered }) => {
   const userId = localStorage.getItem("uid");
 
   const incrementAnswer = (answerId) => {

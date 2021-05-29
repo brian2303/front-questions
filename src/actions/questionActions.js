@@ -5,6 +5,7 @@ export const LOADING = 'LOADING'
 export const LOADED_SUCCESS = 'LOADED_SUCCESS'
 export const LOADED_FAILURE = 'LOADED_FAILURE'
 export const UPDATE_POSITION = 'UPDATE_POSITION'
+export const UPDATE_LAST_ANSWER="UPDATE_LAST_ANSWER"
 
 export const loading = () => ({ type: LOADING })
 
@@ -19,6 +20,11 @@ export const updatePosition = payload => ({
 });
 
 export const failure = () => ({ type: LOADED_FAILURE })
+
+export const updateLastAnswer= payload =>({
+  type: UPDATE_LAST_ANSWER,
+  payload
+})
 
 export function fetchQuestions() {
   return async dispatch => {
@@ -129,6 +135,7 @@ export function postAnswer(answer) {
 
 export function updateAnswers(answer) {
   return async dispatch => {
+    dispatch(updateLastAnswer(answer))
     try {
       const response = await fetch(`${URL_BASE}/update-position`,
         {
@@ -152,7 +159,7 @@ export function updateAnswers(answer) {
 
 
 
-const orderByPosition = (o1, o2) => {
+export const orderByPosition = (o1, o2) => {
 
   if (o1.position < o2.position) {
     return 1
