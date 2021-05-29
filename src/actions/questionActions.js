@@ -1,4 +1,5 @@
-const URL_BASE = 'https://api-questions-spring.herokuapp.com';
+// const URL_BASE = 'https://api-questions-spring.herokuapp.com';
+const URL_BASE = 'http://localhost:8080';
 
 export const LOADING = 'LOADING'
 export const LOADED_SUCCESS = 'LOADED_SUCCESS'
@@ -151,13 +152,13 @@ export function updateAnswers(answer) {
 
 
 
-const orderByPosition = (o1,o2)=>{
+const orderByPosition = (o1, o2) => {
 
-  if(o1.position < o2.position){
-      return 1
-  }else if (o1.position > o2.position){
-      return -1
+  if (o1.position < o2.position) {
+    return 1
+  } else if (o1.position > o2.position) {
+    return -1
   }
   return 0
-  
-  }
+
+}
