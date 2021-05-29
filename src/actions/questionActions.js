@@ -123,6 +123,9 @@ export function postAnswer(answer) {
 }
 
 
+
+
+
 export function updateAnswers(answer) {
   return async dispatch => {
     try {
@@ -137,10 +140,24 @@ export function updateAnswers(answer) {
         }
       )
       const data = await response.json()
-      debugger;
+      data.answers.sort(orderByPosition)
+
       dispatch(updatePosition({ question: data }))
     } catch (error) {
       dispatch(failure())
     }
   }
 }
+
+
+
+const orderByPosition = (o1,o2)=>{
+
+  if(o1.position < o2.position){
+      return 1
+  }else if (o1.position > o2.position){
+      return -1
+  }
+  return 0
+  
+  }

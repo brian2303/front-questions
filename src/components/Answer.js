@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateAnswers } from '../actions/questionActions'
 
+
 const Answer = ({ answer, dispatch, questionId }) => {
+  const userId = localStorage.getItem("uid");
 
   const incrementAnswer = (answerId) => {
     const answer = { questionId: questionId, answerId: answerId, action: "sum" }
@@ -18,8 +20,14 @@ const Answer = ({ answer, dispatch, questionId }) => {
     <aside className="answer">
       <p>{answer.answer}</p>
       <p>{answer.position}</p>
-      <button onClick={() => { incrementAnswer(answer.id) }}> + </button>
-      <button onClick={() => { decrementAnswer(answer.id) }}> - </button>
+      {userId && 
+      <>
+       <button onClick={() => { incrementAnswer(answer.id) }}> + </button>
+        <button onClick={() => { decrementAnswer(answer.id) }}> - </button> 
+      </>
+      
+      }
+      
     </aside>
   )
 }
