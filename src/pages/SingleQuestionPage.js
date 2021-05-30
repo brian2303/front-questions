@@ -12,8 +12,6 @@ const SingleQuestionPage = ({
   match,
   dispatch,
   question,
-  hasErrors,
-  loading,
   redirect,
 }) => {
   const { id } = match.params
@@ -28,24 +26,22 @@ const SingleQuestionPage = ({
   }, [id]);
 
   const renderQuestion = () => {
-    // if (loading) return <p>Loading question...</p>
-    // if (hasErrors) return <p>Unable to display question.</p>
-
     return <Question question={question} />
   }
 
   const renderAnswers = () => {
 
-    return (question.answers && question.answers.length) ? question.answers.sort(orderByPosition).map(answer => (
-      <Answer key={answer.id} answer={answer} questionId={question.id} />
-    )) : <p>Sin respuestas!</p>;
+    return (question.answers && question.answers.length) ?
+      question.answers.sort(orderByPosition).map(answer => (
+        <Answer key={answer.id} answer={answer} questionId={question.id} />
+      )) : <p>Sin respuestas!</p>;
   }
 
   return (
     <section>
       {renderQuestion()}
       {userId && <Link to={"/answer/" + id} className="button right">
-       Responder
+        Responder
       </Link>}
 
       <h2>Respuestas</h2>

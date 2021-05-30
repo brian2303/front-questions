@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { updateAnswers, updatePosition } from '../actions/questionActions'
 import { useHistory } from "react-router-dom";
-import {faThumbsUp,faThumbsDown} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Answer = ({ answer, dispatch, questionId, lastAnswer, redirect }) => {
   const userId = localStorage.getItem("uid");
@@ -15,21 +15,21 @@ const Answer = ({ answer, dispatch, questionId, lastAnswer, redirect }) => {
     }
   }, [redirect, history]);
 
-  const validateBeforeAnswer=(beforeAnswer) =>{
+  const validateBeforeAnswer = (beforeAnswer) => {
 
     if (beforeAnswer.action === "sum") {
-      const answer = { questionId: questionId, answerId: beforeAnswer.answerId, action: "rest", userId,update:true }
+      const answer = { questionId: questionId, answerId: beforeAnswer.answerId, action: "rest", userId, update: true }
       dispatch(updateAnswers(answer))
     }
     if (beforeAnswer.action === "rest") {
-      const answer = { questionId: questionId, answerId: beforeAnswer.answerId, action: "sum", userId,update:true}
+      const answer = { questionId: questionId, answerId: beforeAnswer.answerId, action: "sum", userId, update: true }
       dispatch(updateAnswers(answer))
     }
 
   }
 
-  const actionUpdate = (action,answerId)=>{
-    const answer = { questionId: questionId, answerId: answerId, action: action, userId,update:false }
+  const actionUpdate = (action, answerId) => {
+    const answer = { questionId: questionId, answerId: answerId, action: action, userId, update: false }
     dispatch(updateAnswers(answer))
 
   }
@@ -41,43 +41,47 @@ const Answer = ({ answer, dispatch, questionId, lastAnswer, redirect }) => {
     if (beforeAnswer !== undefined) {
 
       if (answerId !== beforeAnswer.answerId) {
-        actionUpdate("sum",answerId)
-        validateBeforeAnswer(beforeAnswer) 
+        actionUpdate("sum", answerId)
+        validateBeforeAnswer(beforeAnswer)
       }
-    } 
+    }
     else {
-      actionUpdate("sum",answerId)
-     
+      actionUpdate("sum", answerId)
+
     }
   }
 
 
   const decrementAnswer = (answerId) => {
 
-  const beforeAnswer= lastAnswer[0]
-   
+    const beforeAnswer = lastAnswer[0]
+
     if (beforeAnswer !== undefined) {
 
       if (answerId !== beforeAnswer.answerId) {
-        actionUpdate("rest",answerId)
-        validateBeforeAnswer(beforeAnswer)  
+        actionUpdate("rest", answerId)
+        validateBeforeAnswer(beforeAnswer)
       }
-    } 
+    }
     else {
-      actionUpdate("rest",answerId)
+      actionUpdate("rest", answerId)
     }
   }
 
   return (
     <aside className="answer">
-      <p>{answer.answer}</p>
-      <p>{answer.position}</p>
-      
+      <div className="answer-points">
+        <p className="respuesta">
+          {answer.answer}
+        </p>
+      </div>
+
       {userId &&
-        <>
-          <button onClick={() => { incrementAnswer(answer.id) }}> <FontAwesomeIcon icon= {faThumbsUp} /> </button>
-          <button onClick={() => { decrementAnswer(answer.id) }}> <FontAwesomeIcon icon= {faThumbsDown} /> </button>
-        </>
+        <div>
+          <p style={{ margin: 0, padding: 0 }}>Puntos: <strong>{answer.position}</strong></p>
+          <button className="vote-button" onClick={() => { incrementAnswer(answer.id) }}> <FontAwesomeIcon icon={faThumbsUp} /> </button>
+          <button className="vote-button" onClick={() => { decrementAnswer(answer.id) }}> <FontAwesomeIcon icon={faThumbsDown} /> </button>
+        </div>
       }
 
     </aside>
