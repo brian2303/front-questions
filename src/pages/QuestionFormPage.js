@@ -21,12 +21,12 @@ const FormPage = ({ dispatch, loading, redirect, hasErrors }) => {
 
   return (
     <section>
-      <h1>New Question</h1>
+      <h2>Nueva Pregunta</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
 
         <div>
-          <label for="type">Type</label>
+          <label for="type">Tipo</label>
           <select {...register("type")} id="">
             <option value="OPEN (LONG OPEN BOX)">OPEN (LONG OPEN BOX)</option>
             <option value="OPINION (SHORT OPEN BOX)">OPINION (SHORT OPEN BOX)</option>
@@ -35,7 +35,7 @@ const FormPage = ({ dispatch, loading, redirect, hasErrors }) => {
           </select>
         </div>
         <div>
-          <label for="category">Category</label>
+          <label for="category">Categoria</label>
           <select {...register("category")} id="category">
             <option value="TECHNOLOGY AND COMPUTER">TECHNOLOGY AND COMPUTER</option>
             <option value="SCIENCES">SCIENCES</option>
@@ -47,11 +47,11 @@ const FormPage = ({ dispatch, loading, redirect, hasErrors }) => {
         </div>
 
         <div>
-          <label for="question">Question</label>
+          <label for="question">Pregunta</label>
           <textarea id="question" {...register("question", { required: true, maxLength: 300 })} />
         </div>
         <button type="submit" className="button" disabled={loading} >{
-          loading ? "Saving ...." : "Save"
+          loading ? "Guardando ...." : "Guardar"
         }</button>
       </form>
     </section>

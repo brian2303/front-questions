@@ -75,7 +75,7 @@ function SignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
-  return <button className="button right" onClick={signInWithGoogle}>Sign in with google</button>;
+  return <button className="button right" onClick={signInWithGoogle}>Entrar con Google</button>;
 }
 
 function SignOut() {
@@ -88,7 +88,7 @@ function SignOut() {
           auth.signOut();
         }}
       >
-        Sign out
+        Salir
       </button>
     )
   );

@@ -1,8 +1,30 @@
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Kalam', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+    background-image:url(https://images.pexels.com/photos/219998/pexels-photo-219998.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);  /* fallback for old browsers */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:cover;
+    min-height: 100vh;
+    background-attachment: fixed;
+  
+
+}
+body:before {
+content: "";
+width:100%;
+min-height: 100vh;
+position: absolute;
+top: 0;
+left: 0;
+
+background: linear-gradient(90deg,rgb(230, 176, 176),black);
+opacity: .5;
+z-index:-1;
+
+
 }
 
 p {
@@ -11,9 +33,9 @@ p {
 
 nav {
   display: flex;
-  padding: 2rem 0;
-  background: rgb(199,198,213);
-  background: linear-gradient(333deg, rgba(199,198,213,1) 8%, rgba(9,9,121,1) 50%, rgba(0,65,255,0.938813025210084) 90%);
+  padding: 1rem 0;
+  background: rgb(245,244,219);
+  background: linear-gradient(278deg, rgba(245,244,219,1) 0%, rgba(214,166,5,1) 89%);
 }
 
 nav section {
@@ -31,13 +53,13 @@ nav a:first-of-type {
 }
 
 nav a:hover {
-  background: rgb(101, 97, 156);
-  border-radius: 10px;
-  transition: 1s;
+  background: rgb(212, 164, 6);
+  border-radius: 50px;
+  transition: 0.5s;
 }
 
 a {
-  color: #b9add8;
+  color: #070116;
   text-decoration: none;
 }
 
@@ -66,7 +88,7 @@ textarea {
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
-  background-color: #f8f8f8;
+  background-color: #f5e9e9;
   resize: none;
 }
 
@@ -89,17 +111,19 @@ textarea {
 }
 
 .answer {
-  background: #f0f0f0;
+  background: #f7f6f0;
   border-radius: 4px;
   padding: 1rem 1.5rem;
   margin: 1rem 0;
+  opacity: 0.85;
+  z-index: -2;
 }
 
 .button {
   display: inline-block;
   background: rgb(2,0,36);
-  background: radial-gradient(circle, rgba(2,0,36,1) 8%, rgba(9,9,121,1) 50%, rgba(0,212,255,1) 95%);
-  color: white;
+  background:  rgb(194, 151, 12) 50%;
+  color: rgb(17, 1, 1);
   border-radius: 4px;
   font-weight: 700;
   padding: 0.75rem 1.5rem;

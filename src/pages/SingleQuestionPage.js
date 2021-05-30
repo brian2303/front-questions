@@ -38,17 +38,17 @@ const SingleQuestionPage = ({
 
     return (question.answers && question.answers.length) ? question.answers.sort(orderByPosition).map(answer => (
       <Answer key={answer.id} answer={answer} questionId={question.id} />
-    )) : <p>Empty answer!</p>;
+    )) : <p>Sin respuestas!</p>;
   }
 
   return (
     <section>
       {renderQuestion()}
       {userId && <Link to={"/answer/" + id} className="button right">
-        Reply
+       Responder
       </Link>}
 
-      <h2>Answers</h2>
+      <h2>Respuestas</h2>
       {renderAnswers()}
     </section>
   )

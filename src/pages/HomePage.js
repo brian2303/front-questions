@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom'
 
 const HomePage = ({ children }) => (
   <section>
-    <h1>Home</h1>
+    <h1>Inicio</h1>
     <div>
       {children}
     </div>
-    <p>welcome to the question and answer app.</p>
-    <Link to="/questions" className="button">
-      View Questions
+     <Link to="/questions" className="button">
+      Ver Preguntas
     </Link>
+    <p>Bienvenido PREGUNTADO Y SOLUCIONANDO APP</p>
   </section>
 )
 export default HomePage
