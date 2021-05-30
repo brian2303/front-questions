@@ -6,7 +6,7 @@ export const initialState = {
   questions: [],
   question: {},
   redirect: null,
-  lastAnswer:{}
+  lastAnswer: []
 }
 
 export default function questionsReducer(state = initialState, action) {
@@ -19,8 +19,6 @@ export default function questionsReducer(state = initialState, action) {
       return { ...state, loading: false, hasErrors: true }
     case actions.UPDATE_POSITION:
       return { ...state, ...action.payload }
-    case actions.UPDATE_LAST_ANSWER:
-        return { ...state, lastAnswer: action.payload }
     default:
       return state
   }

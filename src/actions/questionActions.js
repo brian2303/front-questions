@@ -5,7 +5,7 @@ export const LOADING = 'LOADING'
 export const LOADED_SUCCESS = 'LOADED_SUCCESS'
 export const LOADED_FAILURE = 'LOADED_FAILURE'
 export const UPDATE_POSITION = 'UPDATE_POSITION'
-export const UPDATE_LAST_ANSWER="UPDATE_LAST_ANSWER"
+export const UPDATE_LAST_ANSWER = "UPDATE_LAST_ANSWER"
 
 export const loading = () => ({ type: LOADING })
 
@@ -21,7 +21,7 @@ export const updatePosition = payload => ({
 
 export const failure = () => ({ type: LOADED_FAILURE })
 
-export const updateLastAnswer= payload =>({
+export const updateLastAnswer = payload => ({
   type: UPDATE_LAST_ANSWER,
   payload
 })
@@ -108,6 +108,27 @@ export function deleteQuestion(id) {
   }
 }
 
+export function fetchAnswersByUser(request) {
+  return async dispatch => {
+    try {
+      const response = await fetch(`${URL_BASE}/fetch-answer-user`,
+        {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(request)
+        }
+      )
+      const data = await response.json()
+      dispatch(success({ lastAnswer: data }));
+    } catch (error) {
+      dispatch(failure())
+    }
+  }
+}
+
 export function postAnswer(answer) {
   return async dispatch => {
     dispatch(loading())
@@ -135,7 +156,6 @@ export function postAnswer(answer) {
 
 export function updateAnswers(answer) {
   return async dispatch => {
-    dispatch(updateLastAnswer(answer))
     try {
       const response = await fetch(`${URL_BASE}/update-position`,
         {
@@ -148,9 +168,7 @@ export function updateAnswers(answer) {
         }
       )
       const data = await response.json()
-      data.answers.sort(orderByPosition)
-
-      dispatch(updatePosition({ question: data }))
+      dispatch(success({ redirect: `/question/${answer.questionId}`, lastAnswer: data }))
     } catch (error) {
       dispatch(failure())
     }

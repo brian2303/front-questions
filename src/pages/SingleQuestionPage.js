@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { fetchQuestion } from '../actions/questionActions'
+import { fetchAnswersByUser, fetchQuestion, updateAnswers } from '../actions/questionActions'
 
 import { Question } from '../components/Question'
 import Answer from '../components/Answer'
 import { Link } from 'react-router-dom'
-import {orderByPosition} from "../actions/questionActions"
+import { orderByPosition } from "../actions/questionActions"
 
 const SingleQuestionPage = ({
   match,
@@ -14,23 +14,28 @@ const SingleQuestionPage = ({
   question,
   hasErrors,
   loading,
+  redirect,
 }) => {
   const { id } = match.params
   const userId = localStorage.getItem("uid");
 
   useEffect(() => {
     dispatch(fetchQuestion(id))
-  }, [dispatch, id])
+  }, [dispatch, id, redirect])
+
+  useEffect(() => {
+    dispatch(fetchAnswersByUser({ questionId: id, userId }))
+  }, [id]);
 
   const renderQuestion = () => {
-    if (loading) return <p>Loading question...</p>
-    if (hasErrors) return <p>Unable to display question.</p>
+    // if (loading) return <p>Loading question...</p>
+    // if (hasErrors) return <p>Unable to display question.</p>
 
     return <Question question={question} />
   }
 
   const renderAnswers = () => {
-    
+
     return (question.answers && question.answers.length) ? question.answers.sort(orderByPosition).map(answer => (
       <Answer key={answer.id} answer={answer} questionId={question.id} />
     )) : <p>Empty answer!</p>;
@@ -52,7 +57,8 @@ const SingleQuestionPage = ({
 const mapStateToProps = state => ({
   question: state.question.question,
   loading: state.question.loading,
-  hasErrors: state.question.hasErrors
+  hasErrors: state.question.hasErrors,
+  redirect: state.question.redirect
 })
 
 export default connect(mapStateToProps)(SingleQuestionPage)
