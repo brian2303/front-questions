@@ -13,53 +13,56 @@ const Answer = ({ answer, dispatch, questionId, lastAnswer, redirect }) => {
     }
   }, [redirect, history]);
 
-  const incrementAnswer = (answerId) => {
+  const validateBeforeAnswer=(beforeAnswer) =>{
 
-    if (lastAnswer[0] !== undefined) {
-
-      if (answerId !== lastAnswer[0].answerId) {
-        const answer = { questionId: questionId, answerId: answerId, action: "sum", userId,update:false }
-        dispatch(updateAnswers(answer))
-
-        if (lastAnswer[0].action === "sum") {
-          const answer = { questionId: questionId, answerId: lastAnswer[0].answerId, action: "rest", userId,update:true }
-          dispatch(updateAnswers(answer))
-        }
-        if (lastAnswer[0].action === "rest") {
-          const answer = { questionId: questionId, answerId: lastAnswer[0].answerId, action: "sum", userId,update:true }
-          dispatch(updateAnswers(answer))
-        }
-      }
-    } 
-    else {
-      const answer = { questionId: questionId, answerId: answerId, action: "sum", userId,update:false }
+    if (beforeAnswer.action === "sum") {
+      const answer = { questionId: questionId, answerId: beforeAnswer.answerId, action: "rest", userId,update:true }
+      dispatch(updateAnswers(answer))
+    }
+    if (beforeAnswer.action === "rest") {
+      const answer = { questionId: questionId, answerId: beforeAnswer.answerId, action: "sum", userId,update:true}
       dispatch(updateAnswers(answer))
     }
 
+  }
+
+  const actionUpdate = (action,answerId)=>{
+    const answer = { questionId: questionId, answerId: answerId, action: action, userId,update:false }
+    dispatch(updateAnswers(answer))
 
   }
 
-  const decrementAnswer = (answerId) => {
-   
-    if (lastAnswer[0] !== undefined) {
 
-      if (answerId !== lastAnswer[0].answerId) {
-        const answer = { questionId: questionId, answerId: answerId, action: "rest", userId, update:false}
-        dispatch(updateAnswers(answer))
+  const incrementAnswer = (answerId) => {
+    const beforeAnswer = lastAnswer[0]
 
-        if (lastAnswer[0].action === "sum") {
-          const answer = { questionId: questionId, answerId: lastAnswer[0].answerId, action: "rest", userId,update:true }
-          dispatch(updateAnswers(answer))
-        }
-        if (lastAnswer[0].action === "rest") {
-          const answer = { questionId: questionId, answerId: lastAnswer[0].answerId, action: "sum", userId,update:true}
-          dispatch(updateAnswers(answer))
-        }
+    if (beforeAnswer !== undefined) {
+
+      if (answerId !== beforeAnswer.answerId) {
+        actionUpdate("sum",answerId)
+        validateBeforeAnswer(beforeAnswer) 
       }
     } 
     else {
-      const answer = { questionId: questionId, answerId: answerId, action: "rest", userId,update:false }
-      dispatch(updateAnswers(answer))
+      actionUpdate("sum",answerId)
+     
+    }
+  }
+
+
+  const decrementAnswer = (answerId) => {
+
+  const beforeAnswer= lastAnswer[0]
+   
+    if (beforeAnswer !== undefined) {
+
+      if (answerId !== beforeAnswer.answerId) {
+        actionUpdate("rest",answerId)
+        validateBeforeAnswer(beforeAnswer)  
+      }
+    } 
+    else {
+      actionUpdate("rest",answerId)
     }
   }
 
