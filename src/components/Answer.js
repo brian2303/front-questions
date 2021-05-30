@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { updateAnswers, updatePosition } from '../actions/questionActions'
 import { useHistory } from "react-router-dom";
 
-const Answer = ({ answer, dispatch, questionId,/*lastQuestionAndwered*/redirect }) => {
+const Answer = ({ answer, dispatch, questionId, lastAnswer, redirect }) => {
   const userId = localStorage.getItem("uid");
   const history = useHistory();
 
@@ -15,44 +15,52 @@ const Answer = ({ answer, dispatch, questionId,/*lastQuestionAndwered*/redirect 
 
   const incrementAnswer = (answerId) => {
 
-    // if (questionId === lastQuestionAndwered.questionId){
+    if (lastAnswer[0] !== undefined) {
 
-    //   if(answerId !== lastQuestionAndwered.answerId){
-    //     if(lastQuestionAndwered.action === "sum"){
-    //       const answer = {questionId:questionId,answerId:lastQuestionAndwered.answerId,action:"rest"}
-    //       dispatch(updateAnswers(answer))
-    //     }else{
-    //       const answer = {questionId:questionId,answerId:lastQuestionAndwered.answerId,action:"sum"}
-    //       dispatch(updateAnswers(answer))
-    //     }
-    //   }else{
-    //     return;
-    //   }
-    // }
+      if (answerId !== lastAnswer[0].answerId) {
+        const answer = { questionId: questionId, answerId: answerId, action: "sum", userId,update:false }
+        dispatch(updateAnswers(answer))
 
-    const answer = { questionId: questionId, answerId: answerId, action: "sum", userId }
-    dispatch(updateAnswers(answer))
+        if (lastAnswer[0].action === "sum") {
+          const answer = { questionId: questionId, answerId: lastAnswer[0].answerId, action: "rest", userId,update:true }
+          dispatch(updateAnswers(answer))
+        }
+        if (lastAnswer[0].action === "rest") {
+          const answer = { questionId: questionId, answerId: lastAnswer[0].answerId, action: "sum", userId,update:true }
+          dispatch(updateAnswers(answer))
+        }
+      }
+    } 
+    else {
+      const answer = { questionId: questionId, answerId: answerId, action: "sum", userId,update:false }
+      dispatch(updateAnswers(answer))
+    }
+
+
   }
 
   const decrementAnswer = (answerId) => {
+   
+    if (lastAnswer[0] !== undefined) {
 
-    // if (questionId === lastQuestionAndwered.questionId){
+      if (answerId !== lastAnswer[0].answerId) {
+        const answer = { questionId: questionId, answerId: answerId, action: "rest", userId, update:false}
+        dispatch(updateAnswers(answer))
 
-    //   if(answerId !== lastQuestionAndwered.answerId){
-    //     if(lastQuestionAndwered.action === "sum"){
-    //       const answer = {questionId:questionId,answerId:lastQuestionAndwered.answerId,action:"rest"}
-    //       dispatch(updateAnswers(answer))
-    //     }else{
-    //       const answer = {questionId:questionId,answerId:lastQuestionAndwered.answerId,action:"sum"}
-    //       dispatch(updateAnswers(answer))
-    //     }
-    //   }else{
-    //     return;
-    //   }
-    // }
-
-    const answer = { questionId: questionId, answerId: answerId, action: "rest", userId }
-    dispatch(updateAnswers(answer))
+        if (lastAnswer[0].action === "sum") {
+          const answer = { questionId: questionId, answerId: lastAnswer[0].answerId, action: "rest", userId,update:true }
+          dispatch(updateAnswers(answer))
+        }
+        if (lastAnswer[0].action === "rest") {
+          const answer = { questionId: questionId, answerId: lastAnswer[0].answerId, action: "sum", userId,update:true}
+          dispatch(updateAnswers(answer))
+        }
+      }
+    } 
+    else {
+      const answer = { questionId: questionId, answerId: answerId, action: "rest", userId,update:false }
+      dispatch(updateAnswers(answer))
+    }
   }
 
   return (
@@ -70,7 +78,8 @@ const Answer = ({ answer, dispatch, questionId,/*lastQuestionAndwered*/redirect 
   )
 }
 const mapStateToProps = state => ({
-  redirect: state.question.redirect
-  //lastQuestionAndwered : state.question.lastAnswer
+  redirect: state.question.redirect,
+  lastAnswer: state.question.lastAnswer
+
 })
 export default connect(mapStateToProps)(Answer)
