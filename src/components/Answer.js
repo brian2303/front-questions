@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { updateAnswers, updatePosition } from '../actions/questionActions'
 import { useHistory } from "react-router-dom";
+import {faThumbsUp,faThumbsDown} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Answer = ({ answer, dispatch, questionId, lastAnswer, redirect }) => {
   const userId = localStorage.getItem("uid");
@@ -70,10 +72,11 @@ const Answer = ({ answer, dispatch, questionId, lastAnswer, redirect }) => {
     <aside className="answer">
       <p>{answer.answer}</p>
       <p>{answer.position}</p>
+      
       {userId &&
         <>
-          <button onClick={() => { incrementAnswer(answer.id) }}> + </button>
-          <button onClick={() => { decrementAnswer(answer.id) }}> - </button>
+          <button onClick={() => { incrementAnswer(answer.id) }}> <FontAwesomeIcon icon= {faThumbsUp} /> </button>
+          <button onClick={() => { decrementAnswer(answer.id) }}> <FontAwesomeIcon icon= {faThumbsDown} /> </button>
         </>
       }
 
